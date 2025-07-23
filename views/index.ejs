@@ -25,45 +25,78 @@
       font-weight: bold;
       margin-bottom: 30px;
     }
-    ul {
-      list-style: none;
-      padding: 0;
-      max-width: 600px;
+    table {
       margin: auto;
-    }
-    li {
-      background: #dfe6e9;
-      margin: 10px 0;
-      padding: 15px;
+      width: 90%;
+      max-width: 700px;
+      border-collapse: collapse;
+      background: white;
       border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
-    li a, li form {
+    th, td {
+      padding: 12px 20px;
+      border-bottom: 1px solid #dfe6e9;
+      text-align: left;
+      font-size: 1rem;
+      color: #2d3436;
+    }
+    th {
+      background-color: #0984e3;
+      color: white;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    tr:hover {
+      background-color: #f1f3f6;
+    }
+    .actions {
+      white-space: nowrap;
+    }
+    .actions a, .actions form {
+      display: inline-block;
       margin-left: 10px;
-      display: inline;
     }
-    button {
+    .actions button {
       background: transparent;
       border: none;
       cursor: pointer;
       color: red;
       font-size: 1.2rem;
+      padding: 0;
     }
   </style>
 </head>
 <body>
   <h1>📦 All Products</h1>
   <a class="add-btn" href="/products/new">➕ Add Product</a>
-  <ul>
-    <% products.forEach(product => { %>
-      <li>
-        <strong><%= product.name %></strong> (Stock: <%= product.quantity %>)
-        <a href="/products/edit/<%= product._id %>">✏️</a>
-        <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
-  <button type="submit">🗑️</button>
-</form>
 
-      </li>
-    <% }); %>
-  </ul>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Stock</th>
+        <th>Price ($)</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% products.forEach(product => { %>
+        <tr>
+          <td><%= product.name %></td>
+          <td><%= product.quantity %></td>
+         <td><%= product.price ? product.price.toFixed(2) : '0.00' %></td>
+
+          <td class="actions">
+            <a href="/products/edit/<%= product._id %>" title="Edit product">✏️</a>
+            <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button type="submit" title="Delete product">🗑️</button>
+            </form>
+          </td>
+        </tr>
+      <% }); %>
+    </tbody>
+  </table>
 </body>
 </html>
