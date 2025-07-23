@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Inventory Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6fa;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 20px;
+      color: #2f3640;
+    }
+    a.add-btn {
+      display: inline-block;
+      padding: 10px 20px;
+      background: #00b894;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 5px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+      max-width: 600px;
+      margin: auto;
+    }
+    li {
+      background: #dfe6e9;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+    }
+    li a, li form {
+      margin-left: 10px;
+      display: inline;
+    }
+    button {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      color: red;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>📦 All Products</h1>
+  <a class="add-btn" href="/products/new">➕ Add Product</a>
+  <ul>
+    <% products.forEach(product => { %>
+      <li>
+        <strong><%= product.name %></strong> (Stock: <%= product.quantity %>)
+        <a href="/products/edit/<%= product._id %>">✏️</a>
+        <form action="/products/<%= product._id %>?_method=DELETE" method="POST" style="display:inline;">
+  <button type="submit">🗑️</button>
+</form>
+
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
